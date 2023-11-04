@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Question List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .question {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .question-text {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .answer-list {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .answer {
+            margin-bottom: 10px;
+            cursor: pointer;
+            color: #333;
+            transition: color 0.3s;
+        }
+
+        .answer:hover {
+            font-weight: bold;
+        }
+
+        .answer.correct {
+            color: green;
+        }
+
+        .answer.incorrect {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Question List</h1>
+        <div class="question-list">
+            {% for question in questions %}
+                <div class="question">
+                    <div class="question-text">{{ question.text }} ({{ question.category.name }} - {{ question.difficulty.level }})</div>
+                    <ul class="answer-list">
+                        {% for answer in question.question_answers.all %}
+                            <li class="answer" data-is-correct="{{ answer.is_correct|lower }}">{{ answer.text }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <script>
+        document.querySelectorAll('.answer').forEach(item => {
+            item.addEventListener('click', event => {
+                const isCorrect = item.getAttribute('data-is-correct') === 'true';
+                if (isCorrect) {
+                    item.classList.add('correct');
+                } else {
+                    item.classList.add('incorrect');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

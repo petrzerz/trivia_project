@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Question Detail</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .correct-answer {
+            color: green;
+        }
+
+        .incorrect-answer {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Question Detail</h1>
+        <p><strong>Category:</strong> {{ question.category.name }}</p>
+        <p><strong>Difficulty:</strong> {{ question.difficulty.level }}</p>
+        <p><strong>Text:</strong> {{ question.text }}</p>
+        <h3>Answers:</h3>
+        <ul>
+            {% for answer in question.question_answers.all %}
+                <li class="answer" data-is-correct="{{ answer.is_correct }}">{{ answer.text }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <!-- Include Bootstrap JS and jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        document.querySelectorAll('.answer').forEach(item => {
+            item.addEventListener('click', event => {
+                const isCorrect = JSON.parse(item.getAttribute('data-is-correct'));
+                if (isCorrect) {
+                    item.classList.add('correct-answer');
+                } else {
+                    item.classList.add('incorrect-answer');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
