@@ -61,43 +61,38 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Question List</h1>
-        <form method="get" action="">
-            <label for="category">Filter by Category:</label>
-            <select id="category" name="category">
-                <option value="">All</option>
-                {% for category in categories %}
-                    <option value="{{ category.name }}">{{ category.name }}</option>
+<div class="container">
+    <h1>Question List</h1>
+    <form method="get" action="">
+        {{ form.as_p }}
+        <button type="submit">Filter</button>
+    </form>
+    <div class="question-list">
+        {% for question in questions %}
+        <div class="question">
+            <div class="question-text">{{ question.text }} ({{ question.category.name }} - {{ question.difficulty.level }})
+            </div>
+            <ul class="answer-list">
+                {% for answer in question.question_answers.all %}
+                <li class="answer" data-is-correct="{{ answer.is_correct|lower }}">{{ answer.text }}</li>
                 {% endfor %}
-            </select>
-            <button type="submit">Filter</button>
-        </form>
-        <div class="question-list">
-            {% for question in questions %}
-                <div class="question">
-                    <div class="question-text">{{ question.text }} ({{ question.category.name }} - {{ question.difficulty.level }})</div>
-                    <ul class="answer-list">
-                        {% for answer in question.question_answers.all %}
-                            <li class="answer" data-is-correct="{{ answer.is_correct|lower }}">{{ answer.text }}</li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            {% endfor %}
+            </ul>
         </div>
+        {% endfor %}
     </div>
+</div>
 
-    <script>
-        document.querySelectorAll('.answer').forEach(item => {
-            item.addEventListener('click', event => {
-                const isCorrect = item.getAttribute('data-is-correct') === 'true';
-                if (isCorrect) {
-                    item.classList.add('correct');
-                } else {
-                    item.classList.add('incorrect');
-                }
-            });
+<script>
+    document.querySelectorAll('.answer').forEach(item => {
+        item.addEventListener('click', event => {
+            const isCorrect = item.getAttribute('data-is-correct') === 'true';
+            if (isCorrect) {
+                item.classList.add('correct');
+            } else {
+                item.classList.add('incorrect');
+            }
         });
-    </script>
+    });
+</script>
 </body>
 </html>
