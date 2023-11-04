@@ -21,6 +21,4 @@ from trivia_app import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.question_list, name='question_list'),
-    path('<int:question_id>/', views.question_detail, name='question_detail'),
-
 ]

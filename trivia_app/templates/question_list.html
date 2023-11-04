@@ -63,6 +63,16 @@
 <body>
     <div class="container">
         <h1>Question List</h1>
+        <form method="get" action="">
+            <label for="category">Filter by Category:</label>
+            <select id="category" name="category">
+                <option value="">All</option>
+                {% for category in categories %}
+                    <option value="{{ category.name }}">{{ category.name }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit">Filter</button>
+        </form>
         <div class="question-list">
             {% for question in questions %}
                 <div class="question">

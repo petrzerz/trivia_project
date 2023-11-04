@@ -1,8 +1,8 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Question, Category, Answer
 
 from django.shortcuts import render
 from .models import Question, Category
+import random
 
 
 def question_list(request):
@@ -13,8 +13,3 @@ def question_list(request):
     else:
         questions = Question.objects.all()
     return render(request, 'question_list.html', {'questions': questions, 'categories': categories})
-
-
-def question_detail(request, question_id):
-    question = get_object_or_404(Question, pk=question_id)
-    return render(request, 'question_detail.html', {'question': question})
