@@ -34,6 +34,23 @@
             font-weight: bold;
             color: #333;
         }
+        .tag {
+            display: inline-block;
+            padding: 5px 10px;
+            margin: 5px;
+            font-size: 12px;
+            background-color: #f2f2f2;
+            border: 1px solid #e6e6e6;
+            border-radius: 5px;
+        }
+
+        .category-tag {
+            color: #0047AB;
+        }
+
+        .difficulty-tag {
+            color: #008000;
+        }
 
         .answer-list {
             list-style-type: none;
@@ -66,33 +83,43 @@
     <form method="get" action="">
         {{ form.as_p }}
         <button type="submit">Filter</button>
+        <button type="submit" name="clear">Clear Filters</button>
     </form>
-    <div class="question-list">
-        {% for question in questions %}
-        <div class="question">
-            <div class="question-text">{{ question.text }} ({{ question.category.name }} - {{ question.difficulty.level }})
-            </div>
-            <ul class="answer-list">
-                {% for answer in question.question_answers.all %}
-                <li class="answer" data-is-correct="{{ answer.is_correct|lower }}">{{ answer.text }}</li>
-                {% endfor %}
-            </ul>
+        <div class="question-list">
+            {% for question in questions %}
+                <div class="question">
+                     <div class="question-text" onclick="showAnswers(this)">
+                        {{ question.text }}
+                        <div class="tag category-tag">{{ question.category.name }}</div>
+                        <div class="tag difficulty-tag">{{ question.difficulty.level }}</div>
+                    </div>
+                    <ul class="answer-list" style="display: none;">
+                        {% for answer in question.question_answers.all %}
+                            <li class="answer" onclick="checkAnswer(this, {{ answer.is_correct|lower }})">{{ answer.text }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endfor %}
         </div>
-        {% endfor %}
     </div>
-</div>
 
 <script>
-    document.querySelectorAll('.answer').forEach(item => {
-        item.addEventListener('click', event => {
-            const isCorrect = item.getAttribute('data-is-correct') === 'true';
-            if (isCorrect) {
-                item.classList.add('correct');
+        function showAnswers(element) {
+            const answerList = element.nextElementSibling;
+            if (answerList.style.display === 'none') {
+                answerList.style.display = 'block';
             } else {
-                item.classList.add('incorrect');
+                answerList.style.display = 'none';
             }
-        });
-    });
-</script>
+        }
+
+        function checkAnswer(element, isCorrect) {
+            if (isCorrect) {
+                element.classList.add('correct');
+            } else {
+                element.classList.add('incorrect');
+            }
+        }
+    </script>
 </body>
 </html>

@@ -1,5 +1,5 @@
 from django.db.models import Q
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 from .forms import FilterForm
 from .models import Question, Category, Difficulty
@@ -16,5 +16,7 @@ def question_list(request):
     if selected_difficulty:
         query &= Q(difficulty__level=selected_difficulty)
     questions = queryset.filter(query)
+    if 'clear' in request.GET:
+        return redirect('question_list')
     return render(request, 'question_list.html',
                   {'questions': questions, 'form': form})
