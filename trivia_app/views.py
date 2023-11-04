@@ -1,15 +1,20 @@
-from django.shortcuts import render, get_object_or_404
-
+from django.db.models import Q
 from django.shortcuts import render
-from .models import Question, Category
-import random
+
+from .forms import FilterForm
+from .models import Question, Category, Difficulty
 
 
 def question_list(request):
-    categories = Category.objects.all()
+    form = FilterForm(request.GET)
     selected_category = request.GET.get('category')
+    selected_difficulty = request.GET.get('difficulty')
+    query = Q()
+    queryset = Question.objects.all()
     if selected_category:
-        questions = Question.objects.filter(category__name=selected_category)
-    else:
-        questions = Question.objects.all()
-    return render(request, 'question_list.html', {'questions': questions, 'categories': categories})
+        query &= Q(category__name=selected_category)
+    if selected_difficulty:
+        query &= Q(difficulty__level=selected_difficulty)
+    questions = queryset.filter(query)
+    return render(request, 'question_list.html',
+                  {'questions': questions, 'form': form})
