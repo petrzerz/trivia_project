@@ -8,10 +8,9 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE",
 django.setup()
 from trivia_app.models import Category, QuestionType, Difficulty, Question, Answer
 
-API_URL = 'https://opentdb.com/api.php?amount=20'
+API_URL = 'https://opentdb.com/api.php?amount=50'
 
 response = requests.get(API_URL).json()
-print(response)
 
 results = response['results']
 

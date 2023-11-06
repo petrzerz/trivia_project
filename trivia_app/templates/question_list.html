@@ -49,7 +49,24 @@
         }
 
         .difficulty-tag {
-            color: #008000;
+        padding: 5px 10px;
+        border-radius: 5px;
+        font-size: 12px;
+        display: inline-block;
+        margin: 5px;
+        /* Assign colors based on difficulty */
+    }
+
+        .difficulty-tag.easy {
+            color: green;
+        }
+
+        .difficulty-tag.medium {
+                color: #FFA500;
+            }
+
+        .difficulty-tag.hard {
+            color: red;
         }
 
         .answer-list {
@@ -79,48 +96,51 @@
 </head>
 <body>
 <div class="container">
-    <h1>Question List</h1>
+    <h1>Questions</h1>
     <form method="get" action="">
         {{ form.as_p }}
         <button type="submit">Submit Filter</button>
         <button type="submit" name="clear">Clear Filters</button>
     </form>
-        <div class="question-list">
-            {% for question in questions %}
-                <div class="question">
-                     <div class="question-text" onclick="showAnswers(this)">
-                        {{ question.text|safe }}
-                        <div class="tag category-tag">{{ question.category.name|safe }}</div>
-                        <div class="tag difficulty-tag">{{ question.difficulty.level|safe }}</div>
-                    </div>
-                    <ul class="answer-list" style="display: none;">
-                        {% load shuffle %}
-                        {% for answer in question.question_answers.all|shuffle  %}
-                            <li class="answer" onclick="checkAnswer(this, {{ answer.is_correct|lower }})">{{ answer.text|safe }}</li>
-                        {% endfor %}
-                    </ul>
+    <div class="question-list">
+        {% for question in questions %}
+        <div class="question">
+            <div class="question-text" onclick="showAnswers(this)">
+                {{ question.text|safe }}
+                <div class="tag category-tag">{{ question.category.name|safe }}</div>
+                <div class="tag difficulty-tag {% if question.difficulty.level == 'easy' %}easy{% elif question.difficulty.level == 'medium' %}medium{% elif question.difficulty.level == 'hard' %}hard{% endif %}">
+                    {{ question.difficulty.level|safe }}
                 </div>
-            {% endfor %}
+            </div>
+            <ul class="answer-list" style="display: none;">
+                {% load shuffle %}
+                {% for answer in question.question_answers.all|shuffle %}
+                <li class="answer" onclick="checkAnswer(this, {{ answer.is_correct|lower }})">{{ answer.text|safe }}
+                </li>
+                {% endfor %}
+            </ul>
         </div>
+        {% endfor %}
     </div>
+</div>
 
 <script>
-        function showAnswers(element) {
-            const answerList = element.nextElementSibling;
-            if (answerList.style.display === 'none') {
-                answerList.style.display = 'block';
-            } else {
-                answerList.style.display = 'none';
-            }
+    function showAnswers(element) {
+        const answerList = element.nextElementSibling;
+        if (answerList.style.display === 'none') {
+            answerList.style.display = 'block';
+        } else {
+            answerList.style.display = 'none';
         }
+    }
 
-        function checkAnswer(element, isCorrect) {
-            if (isCorrect) {
-                element.classList.add('correct');
-            } else {
-                element.classList.add('incorrect');
-            }
+    function checkAnswer(element, isCorrect) {
+        if (isCorrect) {
+            element.classList.add('correct');
+        } else {
+            element.classList.add('incorrect');
         }
-    </script>
+    }
+</script>
 </body>
 </html>
