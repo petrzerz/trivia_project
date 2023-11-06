@@ -1,5 +1,6 @@
 from django import forms
-from .models import Category, Difficulty, Question
+
+from .models import Category, Difficulty
 
 
 class FilterForm(forms.Form):

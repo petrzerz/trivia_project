@@ -1,12 +1,9 @@
-from pytest_django.asserts import assertTemplateUsed
-from django.urls import reverse, resolve
-
 import pytest
-from django.test import RequestFactory
-
+from django.test import Client, RequestFactory
+from django.urls import reverse, resolve
 from factories import CategoryFactory, DifficultyFactory, QuestionFactory, AnswerFactory
+from pytest_django.asserts import assertTemplateUsed
 from trivia_app.views import question_list
-from django.test import Client
 
 
 @pytest.mark.django_db

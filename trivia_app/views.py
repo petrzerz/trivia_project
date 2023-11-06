@@ -1,8 +1,8 @@
 from django.db.models import Q
 from django.shortcuts import render, redirect
-import random
+
 from .forms import FilterForm
-from .models import Question, Category, Difficulty
+from .models import Question
 
 
 def question_list(request):

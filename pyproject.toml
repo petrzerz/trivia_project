@@ -2,7 +2,7 @@
 name = "trivia"
 version = "0.1.0"
 description = "Question/Answer Game"
-authors = ["pzerzis <pzerzis@wings-ict-solutions.eu>"]
+authors = ["petros_zerzis"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
