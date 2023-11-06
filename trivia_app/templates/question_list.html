@@ -89,13 +89,14 @@
             {% for question in questions %}
                 <div class="question">
                      <div class="question-text" onclick="showAnswers(this)">
-                        {{ question.text }}
-                        <div class="tag category-tag">{{ question.category.name }}</div>
-                        <div class="tag difficulty-tag">{{ question.difficulty.level }}</div>
+                        {{ question.text|safe }}
+                        <div class="tag category-tag">{{ question.category.name|safe }}</div>
+                        <div class="tag difficulty-tag">{{ question.difficulty.level|safe }}</div>
                     </div>
                     <ul class="answer-list" style="display: none;">
-                        {% for answer in question.question_answers.all %}
-                            <li class="answer" onclick="checkAnswer(this, {{ answer.is_correct|lower }})">{{ answer.text }}</li>
+                        {% load shuffle %}
+                        {% for answer in question.question_answers.all|shuffle  %}
+                            <li class="answer" onclick="checkAnswer(this, {{ answer.is_correct|lower }})">{{ answer.text|safe }}</li>
                         {% endfor %}
                     </ul>
                 </div>

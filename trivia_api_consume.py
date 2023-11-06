@@ -11,6 +11,7 @@ from trivia_app.models import Category, QuestionType, Difficulty, Question, Answ
 API_URL = 'https://opentdb.com/api.php?amount=20'
 
 response = requests.get(API_URL).json()
+print(response)
 
 results = response['results']
 

@@ -62,6 +62,10 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            'libraries': {
+                'shuffle': 'trivia_app.templates.shuffle',
+
+            }
         },
     },
 ]
