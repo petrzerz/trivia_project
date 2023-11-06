@@ -22,7 +22,7 @@ To set up and run the project in a new development environment, follow these ste
 
 # Database Schema
 
-**The database ERD**:
+**The database ERD**: <br>
 ![ERD](db_erd.png)
 
 The database schema is defined in models.py file in the trivia_app directory.
@@ -47,7 +47,8 @@ The database schema is defined in models.py file in the trivia_app directory.
 ## Testing
 
 1. **For testing purposes, the project employs Pytest, Factory boy.**
-2. **To run the tests, execute the following command:** <br> ```pytest -rP```
+2. **You can find the tests in `trivia_app/tests/`**
+3. **To run the tests, execute the following command:** <br> ```pytest -rP```
 
 ## Data ingestion
 
