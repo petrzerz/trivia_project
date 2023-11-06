@@ -48,7 +48,8 @@ The database schema is defined in models.py file in the trivia_app directory.
 
 1. **For testing purposes, the project employs Pytest, Factory boy.**
 2. **You can find the tests in `trivia_app/tests/`**
-3. **To run the tests, execute the following command:** <br> ```pytest -rP```
+3. **There is a comment for each test, specifying what is being tested.**
+4. **To run the tests, execute the following command:** <br> ```pytest -rP```
 
 ## Data ingestion
 
