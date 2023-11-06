@@ -32,15 +32,16 @@ The database schema is defined in models.py file in the trivia_app directory.
 1. **In the `views.py` file, a single view is defined, presenting all the Questions along with their respective
    Categories, Difficulty-levels, and Answers. This view is associated with the home URL, which is set as `/` in
    the `urls.py` file**
-2. Within the `forms.py` file, a Django Form is configured. This Form functions to display all available Categories and
+2. **Within the `forms.py` file, a Django Form is configured. This Form functions to display all available Categories
+   and
    Difficulties. Additionally, it includes an input text field for the 'question_term'. This enables users to select
-   filtering Query Parameters for the Question QuerySet.
+   filtering Query Parameters for the Question QuerySet.**
 3. **There are three Query Parameters**
     1. category: filter the Question QuerySet based on the category provided in the form
        field ```?category={category}```
     2. difficulty: filter the Question QuerySet based on the difficulty provided in the form
        field. ```?difficulty={difficulty}```
-    3. question_term: filter the Question QuerySet based on the term typed in the form input
+    3. question_term: filter the Question QuerySet based on the term typed in the form
        field. ```?question_term={question_term}```
     4. You can combine all the Query parameters using ```&``` notation, in a logical AND way.
 
