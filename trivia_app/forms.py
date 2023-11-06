@@ -8,6 +8,7 @@ class FilterForm(forms.Form):
                                       to_field_name="name")
     difficulty = forms.ModelChoiceField(queryset=Difficulty.objects.all(), empty_label="All Difficulties",
                                         required=False, to_field_name="level")
+    question_term = forms.CharField(max_length=255, required=False, label='Question Term')
 
     def __init__(self, *args, **kwargs):
         super(FilterForm, self).__init__(*args, **kwargs)
